@@ -1,0 +1,15 @@
+**** A Voltage Controlled Photodiode*****
+**** C:\Program Files\LTC\LTspiceIV\lib\sub\photodiode.sub
+
+.subckt photodiode +Vl -Vl Cathode Anode
+
+D1 N001 Cathode PDBC156
+Rsh Cathode N001 {Rsh}
+Rs N001 Anode {Rs}
+G§Iph Cathode N001 +Vl -Vl .5
+.model D D
+.lib C:\Program Files\LTC\LTspiceIV\lib\cmp\standard.dio
+.MODEL PDBC156 D(IS=3.1e-12 N=1.03 RS=0 KF=0.01 Cjo={Cjo} M=0.13 + Vj={Vj} BV={BV})
+.param Rs=3 Rsh=150MEG Cjo=10p BV=50 Vj=1
+
+.ends photodiode

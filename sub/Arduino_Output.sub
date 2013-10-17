@@ -1,0 +1,25 @@
+*****A Circuit that simulates the three possible states of an arduino output*********
+*****Vhigh, Vlow, and High impedance
+*****C:\Program Files\LTC\LTspiceIV\lib\sub\Arduino_Output.sub
+
+.subckt arduino_output Vcon Output
+
+*************************+Switch Model******************************************
+.model SW+ SW(Ron={Ron} Roff={Roff} Vt=2.5 Vh=0 Lser=10n Vser=0)
+***********************************************************************************
+.param Ron=1p Roff=10000MEG Rimpedance=150MEG
+*************************-Switch Model******************************************
+.model SW- SW(Ron={Roff} Roff={Ron} Vt=2.5 Vh=0 Lser=10n Vser=0)
+***********************************************************************************
+*************************0Switch Model******************************************
+.model SW0 SW(Ron={Rimpedance} Roff={Ron} Vt=-0.1 Vh=0 Lser=10n Vser=0)
+***********************************************************************************
+
+Slow Imp_or_Gnd Output Vcon 0 SW-
+Shigh Output Vard Vcon 0 SW+
+SImp_or_Gnd 0 Imp_or_Gnd Vcon 0 SW0
+Vard Vard 0 5
+
+
+.ends arduino_output
+
